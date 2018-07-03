@@ -18,26 +18,33 @@ class WorkoutAdd extends Component {
 	  renderCard(values) {
         console.log(values)
         return (
-           <Card> 
+           <Card style={{ width:700}}> 
 		   <article className="item-pane" style={{alignItems : "flex-start"}}>
 		   <div className="item-preview">
 			   <img className='img-responsive' alt=""/>
 		   </div>
 		   <div className="item-details">
-			   <h1>{values.projectName}</h1><span className="subtitle">{values.projectID}</span>
+			   <h1>{values.projectName}</h1>
+			   <span className="subtitle">{values.projectID}</span>
 			   <div className="pane__section">
 				   <p>
 					   {values.ProjectDescription}
+				   </p>
+					<p>
+					   {values.selectTechnology}
 				  </p>
 				   
 			   </div>
 			   <div className="pane__section clearfix">
-
+			   
 				   <Button size='large' className='button-solid'>
-					   Visit Github
+				   <a href={values.link} target='_blank'
+			   className="card-media-body-supporting-bottom-text card-media-link u-float-right">Visit Github
+					  </a>
+					   
 				   </Button>
 			   </div>
-		   </div>
+			   		   </div>
 	   </article>
 
             </Card>
@@ -136,7 +143,7 @@ class WorkoutAdd extends Component {
 						        wrapperCol={{span: 24}}
 						    >
 						    {getFieldDecorator('selectTechnology', {
-						    	initialValue: "Select",
+						    
 						    	rules:[{required: true, message: "Please select a Technology"}]
 					         })(
                                 <Select>
@@ -158,7 +165,7 @@ class WorkoutAdd extends Component {
 						        colon={true}
 						        wrapperCol={{span: 24}}
 						    >
-						    {getFieldDecorator('email', {
+						    {getFieldDecorator('link', {
                                 rules: [{ required: true, message: 'Please Input Github Link!' }],
                            })(
 						        <Input placeholder="gi@github.com" />
@@ -185,7 +192,7 @@ class WorkoutAdd extends Component {
                         
                     </Form>
                     </Card>
-				{this.renderCard(this.props.form)}
+				{this.renderCard(this.props.form.getFieldsValue())}
 					
 </div>
 
