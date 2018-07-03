@@ -15,6 +15,37 @@ class WorkoutAdd extends Component {
 	    });
 	  }
 
+	  renderCard(values) {
+        console.log(values)
+        return (
+           <Card> 
+		   <article className="item-pane" style={{alignItems : "flex-start"}}>
+		   <div className="item-preview">
+			   <img className='img-responsive' alt=""/>
+		   </div>
+		   <div className="item-details">
+			   <h1>{values.projectName}</h1><span className="subtitle">{values.projectID}</span>
+			   <div className="pane__section">
+				   <p>
+					   {values.ProjectDescription}
+				  </p>
+				   
+			   </div>
+			   <div className="pane__section clearfix">
+
+				   <Button size='large' className='button-solid'>
+					   Visit Github
+				   </Button>
+			   </div>
+		   </div>
+	   </article>
+
+            </Card>
+        )
+
+    }
+
+
 	render() {
 		const { getFieldDecorator } = this.props.form;
 		return (
@@ -76,7 +107,7 @@ class WorkoutAdd extends Component {
 						        colon={true}
 						        wrapperCol={{span: 24}}
 						    >
-						    {getFieldDecorator('projecctID', {
+						    {getFieldDecorator('projectID', {
                                 rules: [{ required: true, message: 'Please input Project ID!' }],
                            })(
 						        <Input placeholder="Project ID" />
@@ -136,6 +167,7 @@ class WorkoutAdd extends Component {
                         </Col>
                         <Col span={11}>
 							<FormItem
+							className="pre-requisities"
 						        label="Pre-Requisities"
 						        colon={true}
 						        wrapperCol={{span: 24}}
@@ -153,7 +185,7 @@ class WorkoutAdd extends Component {
                         
                     </Form>
                     </Card>
-				
+				{this.renderCard(this.props.form)}
 					
 </div>
 
