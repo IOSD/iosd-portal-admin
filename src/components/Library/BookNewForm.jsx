@@ -1,7 +1,7 @@
 import { DatePicker } from 'antd';
 import moment from 'moment';
 import React, {Component} from 'react';
-import {Card, Row, Col, Form, Input, Button, Select } from 'antd' ;
+import {Card, Row, Col, Form, Input, Button, Select,Upload,Icon } from 'antd' ;
 const FormItem = Form.Item;
 
 const { TextArea } = Input;
@@ -196,7 +196,19 @@ class WorkoutAdd extends Component {
 						    </FormItem>
                         </Col>
                         
-                        </Row>
+						</Row>
+						<hr />
+						<Row className='text-center'>
+						<Col>
+						<Upload>
+    					<Button className='btn btn-sm btn-outline-primary'>
+						<Icon type="upload" />
+							 Upload Books
+    					</Button>
+						</Upload>
+						</Col>
+						</Row>
+						
 
                                         
                     </Form>

@@ -127,17 +127,19 @@ class WorkoutAdd extends Component {
                         <Row>
 						<Col span={11}>
 							<FormItem
-						        label="Mentor Github ID"
+						        label="Institute Name"
 						        colon={true}
 						        wrapperCol={{span: 24}}
 						    >
-						    {getFieldDecorator('email', {
-                                rules: [{ required: true, message: 'Please Input Github ID!' }],
+						    {getFieldDecorator('institutename', {
+                                rules: [{ required: true, message: 'Please Input Institute Name!' }],
                            })(
-						        <Input placeholder="gi@github.com" />
+						        <Input placeholder="Institute Name" />
 						    )}
 						    </FormItem>
                         </Col>
+                        
+					
                         <Col span={11}>
 							<FormItem
 						        label="Mentor Contact No."
@@ -156,14 +158,14 @@ class WorkoutAdd extends Component {
 						<Row>
 						<Col span={11}>
 							<FormItem
-						        label="Facebook ID"
+						        label="Mentor Github ID"
 						        colon={true}
 						        wrapperCol={{span: 24}}
 						    >
 						    {getFieldDecorator('email', {
-                                rules: [{ required: true, message: 'Please Input Facebook ID!' }],
+                                rules: [{ required: true, message: 'Please Input Github ID!' }],
                            })(
-						        <Input placeholder="facebook@.com" />
+						        <Input placeholder="gi@github.com" />
 						    )}
 						    </FormItem>
                         </Col>

@@ -175,7 +175,21 @@ class WorkoutAdd extends Component {
 						</Col>
 						</Row>
 
-                        
+                        <Col span={11}>
+                            <FormItem
+                                className= "institutename"
+						        label="Institute Name"
+						        colon={true}
+						        wrapperCol={{span: 24}}
+						    >
+						    {getFieldDecorator('institutename', {
+					         	rules: [{ required: true, message: 'Please input Institute Name!' }],
+						    })(
+						        <Input placeholder="Institute Name" />
+						    )}
+                            </FormItem>
+                    
+						</Col>
                 
                     </Form>
                     </Card>

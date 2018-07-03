@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {Card, Row, Col, Form, Input, Button, Select } from 'antd' ;
+import {Card, Row, Col, Form, Input, Button, Select,Upload,Icon} from 'antd' ;
 const FormItem = Form.Item;
-const Option = Select.Option;
+
 const { TextArea } = Input;
 
 class WorkoutAdd extends Component {
@@ -18,64 +18,49 @@ class WorkoutAdd extends Component {
 	render() {
 		const { getFieldDecorator } = this.props.form;
 		return (
-
-            <div>
-			
+			<div>
 			<Card className="my-4" style={{ width:700, }}>
 				<Form layout="inline" onSubmit={this.handleSubmit}>
-					<Row>
-						<Col span={8}>
-							<h4>Add New Courses</h4>
-						</Col>
-						<Col span={8} offset={8}>
-							<div className="float-right">
-								<FormItem>
-							        <Button
-							        	style={{marginRight: '1.2rem'}}
-							        	type="primary"
-							            htmlType="submit"
-							        >
-							            Submit
-							        </Button>
-									<Button
-									
-							        	type="danger"
-							            htmlType="submit"
-							        >
-							        	Delete
-							        </Button>
-							    </FormItem>
-							</div>
-						</Col>
-					</Row>
-
-                    <hr />
-
-                    <Row>
-						<Col span={11}>
-                            <FormItem
-                                className= "courseName"
-						        label="Course Name"
-						        colon={true}
-						        wrapperCol={{span: 24}}
-						    >
-						    {getFieldDecorator('courseName', {
-					         	rules: [{ required: true, message: 'Please input Course name!' }],
-						    })(
-						        <Input placeholder="Course Name" />
-						    )}
-                            </FormItem>
-                    
-						</Col>
-
-                        
-						<Col span={11} >
-                            <FormItem
-                                className= "courseID"
-						        label="Course ID"
-						        colon={true}
-						        wrapperCol={{span: 24}}
-						    >
+			<Row>
+			<Col span={8}>
+				<h4>Add New Courses</h4>
+			</Col>
+			<Col span={8} offset={8}>
+				<div className="float-right">
+			<FormItem>
+			<Button style={{marginRight: '1.2rem'}} type="primary" htmlType="submit">
+				Submit
+			</Button>
+			<Button type="danger" htmlType="submit">
+				Delete
+			</Button>
+			</FormItem>
+				</div>
+			</Col>
+			</Row>
+			<hr />
+			<Row>
+			<Col span={11}>
+			<FormItem 
+				className= "courseName" 
+				label="Course Name"
+				colon={true}
+				wrapperCol={{span: 24}}
+			>
+			{getFieldDecorator('courseName',
+			 {rules: [{ required: true, message: 'Please input Course name!' }],
+			 })(
+				<Input placeholder="Course Name" />
+			   )}
+            </FormItem>
+			</Col>
+			<Col span={11}>
+			<FormItem
+				className= "courseID"
+			    label="Course ID"
+				colon={true}
+				wrapperCol={{span: 24}}
+			>
 						    {getFieldDecorator('courseID', {
                                 rules: [{ required: true, message: 'Please input Course ID!' }],
                            })(
@@ -104,19 +89,18 @@ class WorkoutAdd extends Component {
 
 						<Col span={11}>
 							<FormItem
-						        label="Course Instructor"
+						        label="Course Link"
 						        colon={true}
 						        wrapperCol={{span: 24}}
 						    >
-						    {getFieldDecorator('instructor', {
-                                rules: [{ required: true, message: 'Please Input Course Instructor!' }],
+						    {getFieldDecorator('link', {
+                                rules: [{ required: true, message: 'Please Input Course Link!' }],
                            })(
-						        <Input placeholder="Course Instructor" />
+						        <Input placeholder="Link" />
 						    )}
 						    </FormItem>
                         </Col>
-						
-						</Row>
+                        </Row>
                         
                         <Row>
 						<Col span={11}>
@@ -134,22 +118,34 @@ class WorkoutAdd extends Component {
                         </Col>
                         <Col span={11}>
 							<FormItem
-						        label="Course Duration and Fees"
+						        label="Course Duration"
 						        colon={true}
 						        wrapperCol={{span: 24}}
 						    >
-						    {getFieldDecorator('durationfees', {
-                                rules: [{ required: true, message: 'Please Input Duration and Fees!' }],
+						    {getFieldDecorator('duration', {
+                                rules: [{ required: true, message: 'Please Input Course Duration!' }],
                            })(
-						        <Input placeholder="Duration and Fees" />
+						        <Input placeholder="Duration" />
 						    )}
 						    </FormItem>
-                        </Col>
-                        
-                        </Row>
-
+						</Col>
+						
+						</Row>
+						<hr />
+						<Row className='text-center'>
+						<Col>
+						<Upload>
+    					<Button className='btn btn-sm btn-outline-primary'>
+						<Icon type="upload" />
+							 Upload Courses
+    					</Button>
+						</Upload>
+						</Col>
+						</Row>
+							
                 
-                    </Form>
+					</Form>
+					
                     </Card>
 				
 					

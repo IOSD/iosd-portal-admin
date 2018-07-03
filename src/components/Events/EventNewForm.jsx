@@ -1,7 +1,7 @@
 import { DatePicker } from 'antd';
 import moment from 'moment';
 import React, {Component} from 'react';
-import {Card, Row, Col, Form, Input, Button, Select } from 'antd' ;
+import {Card, Row, Col, Form, Input, Button,Upload,Icon} from 'antd' ;
 const FormItem = Form.Item;
 
 const dateFormat = 'YYYY/MM/DD';
@@ -25,7 +25,8 @@ class WorkoutAdd extends Component {
             <div>
 			
 			<Card className="my-4" style={{ width:700, }}>
-				<Form layout="inline" onSubmit={this.handleSubmit}>
+			
+				<Form layout="vertical" onSubmit={this.handleSubmit}>
 					<Row>
 						<Col span={8}>
 							<h4>Add New Events</h4>
@@ -55,8 +56,7 @@ class WorkoutAdd extends Component {
                     <hr />
 
                     <Row>
-						<Col span={11}>
-                            <FormItem
+                        <FormItem
                                 className= "eventtitle"
 						        label="Event Title"
 						        colon={true}
@@ -69,10 +69,10 @@ class WorkoutAdd extends Component {
 						    )}
                             </FormItem>
                     
-						</Col>
+					</Row>
 
-                        
-						<Col span={11} >
+                        <Row>
+						
                             <FormItem
                                 className= "college"
 						        label="College Name"
@@ -85,11 +85,11 @@ class WorkoutAdd extends Component {
 						        <Input placeholder="College Name" />
 						    )}
 						    </FormItem>
-						</Col>
+					
                         </Row>
 
                         <Row>
-						<Col span={11}>
+						
                             <FormItem
                                 className= "eventdescription"
 						        label="Event Description"
@@ -103,10 +103,11 @@ class WorkoutAdd extends Component {
       <TextArea placeholder="Event Description" autosize={{ minRows: 1, maxRows: 10 }} style={{width: '100%'}}/>
     )}
 						    </FormItem>
-                        </Col>
-
-
-						<Col span={11}>
+                    
+						</Row>
+						
+						<Row>
+						
 						<FormItem
 						   label= "Select Event Date"
 						   colon={true}
@@ -121,27 +122,22 @@ class WorkoutAdd extends Component {
 						</div>
 					   )}
 					   </FormItem>
-				   </Col>
+				   
                         </Row>
 
 
-                        <Row>
-						<Col span={11}>
-							<FormItem
-						        label="Event Link"
-						        colon={true}
-						        wrapperCol={{span: 24}}
-						    >
-						    {getFieldDecorator('link', {
-                                rules: [{ required: true, message: 'Please Input Event Link!' }],
-                           })(
-						        <Input placeholder="link" />
-						    )}
-						    </FormItem>
-                        </Col>
+                        
 						
+						<Row className='text-center'>
+						<Col>
+						<Upload>
+    					<Button className='btn btn-sm btn-outline-primary'>
+						<Icon type="upload" />
+							 Upload Event Poster
+    					</Button>
+						</Upload>
+						</Col>
 						</Row>
-
                                         
                     </Form>
                     </Card>
