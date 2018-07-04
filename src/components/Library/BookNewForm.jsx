@@ -18,6 +18,53 @@ class WorkoutAdd extends Component {
 	    });
 	  }
 
+	  renderCard(values) {
+        console.log(values)
+        return (
+           <Card style={{ width:700}}> 
+		   <article className="item-pane" style={{alignItems : "flex-start"}}>
+		   <div className="item-preview">
+			   <img className='img-responsive' alt=""/>
+		   </div>
+		   <div className="item-details">
+			   <h1>{values.bookname}</h1>
+			   <h2>{values.authorname}</h2>
+			   <div className="pane__section">
+				<p>
+				 {values.bookpreface}
+				</p>
+				<p>
+				 {values.number}
+				</p>
+				<p>
+				 {values.publishername}
+				</p>
+				<p>
+				  {values.bookcategory}
+				</p>
+				<p>
+				  {values.bookcolour}
+				</p>				   
+			   </div>
+			   <div className="pane__section clearfix">
+			   
+				   <Button size='large' className='button-solid'>
+				   <a href={values.link} target='_blank'
+			   className="card-media-body-supporting-bottom-text card-media-link u-float-right">Book Link
+					  </a>
+					   
+				   </Button>
+			   </div>
+			   		   </div>
+	   </article>
+
+            </Card>
+        )
+
+    }
+
+
+	  
 	render() {
 		const { getFieldDecorator } = this.props.form;
 		return (
@@ -62,7 +109,7 @@ class WorkoutAdd extends Component {
 						        colon={true}
 						        wrapperCol={{span: 23}}
 						    >
-						    {getFieldDecorator('bookName', {
+						    {getFieldDecorator('bookname', {
 					         	rules: [{ required: true, message: 'Please input your Book name!' }],
 						    })(
 						        <Input placeholder="Book Name" />
@@ -214,7 +261,7 @@ class WorkoutAdd extends Component {
                     </Form>
                     </Card>
 				
-					
+					{this.renderCard(this.props.form.getFieldsValue())}
 </div>
 
 

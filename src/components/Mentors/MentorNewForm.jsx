@@ -15,6 +15,57 @@ class WorkoutAdd extends Component {
 	    });
 	  }
 
+	  renderCard(values) {
+        console.log(values)
+        return (
+           <Card style={{ width:700}}> 
+		   <article className="item-pane" style={{alignItems : "flex-start"}}>
+		   <div className="item-preview">
+			   <img className='img-responsive' alt=""/>
+		   </div>
+		   <div className="item-details">
+			   <h1>{values.mentorname}</h1>
+			   <h2>{values.mentorID}</h2>
+			   <div className="pane__section">
+				<p>
+				 {values.mentordescription}
+				</p>
+				<p>
+				 {values.selectmentorcoreTechnology}
+				</p>
+				<p>
+				 {values.institutename}
+				</p>
+				<p>
+				  {values.number}
+				</p>
+								   
+			   </div>
+			   <div className="pane__section clearfix">
+			   
+				   <Button size='large' className='button-solid'>
+				   <a href={values.link} target='_blank'
+			   className="card-media-body-supporting-bottom-text card-media-link u-float-right">Github  Link
+					  </a>
+					   
+				   </Button>
+			   </div>
+			   <div className="pane__section clearfix">
+			   
+				   <Button size='large' className='button-solid'>
+				   <a href={values.link1} target='_blank'
+			   className="card-media-body-supporting-bottom-text card-media-link u-float-right">LinkedIn Link
+					  </a>
+					   
+				   </Button>
+			   </div>
+			   		   </div>
+	   </article>
+
+            </Card>
+        )
+
+    }
 	render() {
 		const { getFieldDecorator } = this.props.form;
 		return (
@@ -59,7 +110,7 @@ class WorkoutAdd extends Component {
 						        colon={true}
 						        wrapperCol={{span: 24}}
 						    >
-						    {getFieldDecorator('mentorName', {
+						    {getFieldDecorator('mentorname', {
 					         	rules: [{ required: true, message: 'Please input Mentor name!' }],
 						    })(
 						        <Input placeholder="Mentor Name" />
@@ -109,15 +160,17 @@ class WorkoutAdd extends Component {
 						        wrapperCol={{span: 24}}
 						    >
 						    {getFieldDecorator('selectmentorcoreTechnology', {
-						    	initialValue: "Select",
+						    	initialValue: "",
 						    	rules:[{required: true, message: "Please select a CoreTechnology"}]
 					         })(
+								 
                                 <Select>
 						        	<Option value="Machine Learning">Machine Learning</Option>
                                       <Option value="Python">Python</Option>
                                       <Option value="IOT">IOT</Option>
       								<Option value="React JS">React JS</Option>
-      							</Select>
+								  </Select>
+								  
 						    )}
 						    </FormItem>
 						</Col>
@@ -162,7 +215,7 @@ class WorkoutAdd extends Component {
 						        colon={true}
 						        wrapperCol={{span: 24}}
 						    >
-						    {getFieldDecorator('email', {
+						    {getFieldDecorator('link', {
                                 rules: [{ required: true, message: 'Please Input Github ID!' }],
                            })(
 						        <Input placeholder="gi@github.com" />
@@ -177,7 +230,7 @@ class WorkoutAdd extends Component {
 						        colon={true}
 						        wrapperCol={{span: 24}}
 						    >
-						    {getFieldDecorator('email', {
+						    {getFieldDecorator('link1', {
                                 rules: [{ required: true, message: 'Please Input LinkedIn ID!' }],
                            })(
 						        <Input placeholder="LinkedIn@.com" />
@@ -188,7 +241,9 @@ class WorkoutAdd extends Component {
 
                     </Row>    
                     </Form>
-                    </Card>
+					</Card>
+					
+					{this.renderCard(this.props.form.getFieldsValue())}
 				
 					
 </div>

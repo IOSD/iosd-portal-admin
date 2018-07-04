@@ -15,6 +15,44 @@ class WorkoutAdd extends Component {
 	    });
 	  }
 
+	  renderCard(values) {
+        console.log(values)
+        return (
+           <Card style={{ width:700}}> 
+		   <article className="item-pane" style={{alignItems : "flex-start"}}>
+		   <div className="item-preview">
+			   <img className='img-responsive' alt=""/>
+		   </div>
+		   <div className="item-details">
+			   <h1>{values.projectName}</h1>
+			   <span className="subtitle">{values.projectID}</span>
+			   <div className="pane__section">
+				   <p>
+					   {values.ProjectDescription}
+				   </p>
+					<p>
+					   {values.selectTechnology}
+				  </p>
+				   
+			   </div>
+			   <div className="pane__section clearfix">
+			   
+				   <Button size='large' className='button-solid'>
+				   <a href={values.link} target='_blank'
+			   className="card-media-body-supporting-bottom-text card-media-link u-float-right">Visit Github
+					  </a>
+					   
+				   </Button>
+			   </div>
+			   		   </div>
+	   </article>
+
+            </Card>
+        )
+
+    }
+
+
 	render() {
 		const { getFieldDecorator } = this.props.form;
 		return (
@@ -76,7 +114,7 @@ class WorkoutAdd extends Component {
 						        colon={true}
 						        wrapperCol={{span: 24}}
 						    >
-						    {getFieldDecorator('projecctID', {
+						    {getFieldDecorator('projectID', {
                                 rules: [{ required: true, message: 'Please input Project ID!' }],
                            })(
 						        <Input placeholder="Project ID" />
@@ -105,7 +143,7 @@ class WorkoutAdd extends Component {
 						        wrapperCol={{span: 24}}
 						    >
 						    {getFieldDecorator('selectTechnology', {
-						    	initialValue: "Select",
+						    
 						    	rules:[{required: true, message: "Please select a Technology"}]
 					         })(
                                 <Select>
@@ -127,7 +165,7 @@ class WorkoutAdd extends Component {
 						        colon={true}
 						        wrapperCol={{span: 24}}
 						    >
-						    {getFieldDecorator('email', {
+						    {getFieldDecorator('link', {
                                 rules: [{ required: true, message: 'Please Input Github Link!' }],
                            })(
 						        <Input placeholder="gi@github.com" />
@@ -136,6 +174,7 @@ class WorkoutAdd extends Component {
                         </Col>
                         <Col span={11}>
 							<FormItem
+							className="pre-requisities"
 						        label="Pre-Requisities"
 						        colon={true}
 						        wrapperCol={{span: 24}}
@@ -153,7 +192,7 @@ class WorkoutAdd extends Component {
                         
                     </Form>
                     </Card>
-				
+				{this.renderCard(this.props.form.getFieldsValue())}
 					
 </div>
 

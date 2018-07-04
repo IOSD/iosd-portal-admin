@@ -26,7 +26,7 @@ class WorkoutAdd extends Component {
                 <div className="card-media-object-container">
                     <div className="card-media-object"
                          style={{
-                             backgroundImage: `url(https://static.wixstatic.com/media/7f1245_09e84c14cced44979b63767073289ccc~mv2.jpg)`
+     backgroundImage: `url(https://static.wixstatic.com/media/7f1245_09e84c14cced44979b63767073289ccc~mv2.jpg)`
                          }}/>
 
                 </div>
@@ -151,7 +151,22 @@ class WorkoutAdd extends Component {
 						    </FormItem>
                     
 						</Row>
-						
+                        <Row>
+						<Col>
+							<FormItem
+						        label="Event Link"
+						        colon={true}
+						        wrapperCol={{span: 24}}
+						    >
+						    {getFieldDecorator('link', {
+                                rules: [{ required: true, message: 'Please Input Event Link!' }],
+                           })(
+						        <Input placeholder="link" />
+						    )}
+						    </FormItem>
+                        </Col>
+                            </Row>
+                        
 						<Row>
 						
 						<FormItem

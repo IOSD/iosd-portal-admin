@@ -15,6 +15,61 @@ class WorkoutAdd extends Component {
 	    });
 	  }
 
+	  renderCard(values) {
+        console.log(values)
+        return (
+           <Card style={{ width:700}}> 
+		   <article className="item-pane" style={{alignItems : "flex-start"}}>
+		   <div className="item-preview">
+			   <img className='img-responsive' alt=""/>
+		   </div>
+		   <div className="item-details">
+			   <h1>{values.username}</h1>
+			   <h2>{values.userID}</h2>
+			   <div className="pane__section">
+				<p>
+				 {values.userdescription}
+				</p>
+				<p>
+				 {values.number}
+				</p>
+				<p>
+				 {values.institutename}
+				</p>
+				<p>
+				  {values.countryname}
+				</p>
+					
+				<p>
+				  {values.cityname}
+				</p>
+					
+			   </div>
+			   <div className="pane__section clearfix">
+			   
+				   <Button size='large' className='button-solid'>
+				   <a href={values.link} target='_blank'
+			   className="card-media-body-supporting-bottom-text card-media-link u-float-right">Github Link
+					  </a>
+					   
+				   </Button>
+			   </div>
+			   <div className="pane__section clearfix">
+			   
+				   <Button size='large' className='button-solid'>
+				   <a href={values.link1} target='_blank'
+			   className="card-media-body-supporting-bottom-text card-media-link u-float-right">Gmail Link
+					  </a>
+					   
+				   </Button>
+			   </div>
+			   		   </div>
+	   </article>
+
+            </Card>
+        )
+
+    }
 	render() {
 		const { getFieldDecorator } = this.props.form;
 		return (
@@ -59,7 +114,7 @@ class WorkoutAdd extends Component {
 						        colon={true}
 						        wrapperCol={{span: 24}}
 						    >
-						    {getFieldDecorator('userName', {
+						    {getFieldDecorator('username', {
 					         	rules: [{ required: true, message: 'Please input User name!' }],
 						    })(
 						        <Input placeholder="User Name" />
@@ -92,59 +147,27 @@ class WorkoutAdd extends Component {
 						        colon={true}
 						        wrapperCol={{span: 24}}
 						    >
-						    {getFieldDecorator('userDescription')(
+						    {getFieldDecorator('userdescription')(
                                 <TextArea placeholder="User Description" autosize={{ minRows: 1, maxRows: 10 }} style={{width: '100%'}}/>
 						    )}
 						    </FormItem>
                         </Col>
 
-                        
-
-                        
-						<Col span={11}>
-							<FormItem
-						        label="Github ID"
-						        colon={true}
-						        wrapperCol={{span: 24}}
-						    >
-						    {getFieldDecorator('email', {
-                                rules: [{ required: true, message: 'Please Input Github ID!' }],
-                           })(
-						        <Input placeholder="gi@github.com" />
-						    )}
-						    </FormItem>
-						</Col>
-						</Row>
-						<Row>
-                        <Col span={11}>
-							<FormItem
-						        label="Gmail ID"
-						        colon={true}
-						        wrapperCol={{span: 24}}
-						    >
-						    {getFieldDecorator('email', {
-                                rules: [{ required: true, message: 'Please Input Gmail ID!' }],
-                           })(
-						        <Input placeholder="@gmail.com" />
-						    )}
-						    </FormItem>
-                        </Col>
-                        
                         <Col span={11}>
 							<FormItem
 						        label="Contact No."
 						        colon={true}
 						        wrapperCol={{span: 24}}
 						    >
-						    {getFieldDecorator('contactno', {
+						    {getFieldDecorator('number', {
                                 rules: [{ required: true, message: 'Please Input Contact No.!' }],
                            })(
 						        <Input placeholder="Contact No." />
 						    )}
 						    </FormItem>
 						</Col>
+
 						</Row>
-							
 						<Row>
                         <Col span={11}>
 							<FormItem
@@ -152,7 +175,7 @@ class WorkoutAdd extends Component {
 						        colon={true}
 						        wrapperCol={{span: 24}}
 						    >
-						    {getFieldDecorator('country name', {
+						    {getFieldDecorator('countryname', {
                                 rules: [{ required: true, message: 'Please Input Country Name!' }],
                            })(
 						        <Input placeholder="Country Name" />
@@ -191,9 +214,41 @@ class WorkoutAdd extends Component {
                     
 						</Col>
                 
+						<Row>
+						<Col span={11}>
+							<FormItem
+						        label="Github ID"
+						        colon={true}
+						        wrapperCol={{span: 24}}
+						    >
+						    {getFieldDecorator('link', {
+                                rules: [{ required: true, message: 'Please Input Github ID!' }],
+                           })(
+						        <Input placeholder="gi@github.com" />
+						    )}
+						    </FormItem>
+						</Col>
+						<Col span={11}>
+						<FormItem
+							label="Gmail ID"
+							colon={true}
+							wrapperCol={{span: 24}}
+						>
+						{getFieldDecorator('link1', {
+							rules: [{ required: true, message: 'Please Input Gmail ID!' }],
+					   })(
+							<Input placeholder="@gmail.com" />
+						)}
+						</FormItem>
+					</Col>
+					
+						</Row>
+						
+						
                     </Form>
                     </Card>
-				
+					{this.renderCard(this.props.form.getFieldsValue())}
+
 					
 </div>
 
