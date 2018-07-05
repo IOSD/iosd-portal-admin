@@ -15,7 +15,6 @@ class Mentors extends Component {
                     <Route path='/mentors/:id' component={MentorDetails}/>
                     <Route path='/mentors' component={()=><Redirect to='/mentors/list'/>}/>
                 </Switch>
-
             </div>
         );
     }
