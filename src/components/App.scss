@@ -10,6 +10,8 @@
 @import "../../node_modules/bootstrap/scss/utilities";
 @import '~antd/dist/antd.css';
 
+
+
 .card-header {
   justify-content: space-between;
 
@@ -162,9 +164,6 @@
 .ant-card {
   margin-bottom: 10px;
 }
-
-
-
 
 //***************************************************************************
 /**********************  SCSS for Courses *************************************/
@@ -438,5 +437,179 @@
 .card-media-link {
   color: #41C1F2;
   text-decoration: none;
+}
+
+
+
+//=====================================================================
+//                              NEW BOOK PREVIEW
+//=====================================================================
+
+
+
+.item-pane {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 900px;
+    padding: 26px;
+    background: white;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.item-preview {
+    margin-right: 26px;
+    padding: 26px;
+}
+
+.item-preview,
+.item-details {
+    flex-grow: 1;
+}
+
+.pane__section {
+    padding-top: 26px;
+}
+.pane__section:not(:last-child) {
+    padding-bottom: 26px;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+.item-price {
+    font-family: 'Roboto Slab', Roboto, sans-serif;
+    font-weight: 400;
+    font-size: 2em;
+}
+
+.subtitle {
+    font-family: 'Roboto Slab', Roboto, sans-serif;
+    font-weight: 300;
+    font-size: 1.3em;
+}
+
+.item-price__units {
+    font-weight: 300;
+}
+
+.button {
+    padding: 0.6em 1em;
+    font-weight: 400;
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+    background: #80db65;
+    border-radius: 3px;
+}
+.button:hover {
+    background: #5ed13c;
+}
+
+
+.buy-button {
+    float: left;
+}
+
+.book {
+    position: relative;
+    width: 216px;
+    height: 322px;
+    transform: rotateX(-15deg) rotateY(30deg);
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+    background-size: cover !important;
+}
+
+.book:before {
+    content: '';
+    position: absolute;
+    right: 100%;
+    top: 0;
+    width: 35px;
+    height: 100%;
+    background-color : var(--before-bg);
+    -webkit-transform-origin: top right;
+    transform-origin: top right;
+    -webkit-transform: rotateY(-90deg);
+    transform: rotateY(-90deg);
+}
+.book:after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    width: 100%;
+    height: 35px;
+    background: #eeeeee;
+    -webkit-transform-origin: bottom left;
+    transform-origin: bottom left;
+    -webkit-transform: rotateX(90deg);
+    transform: rotateX(90deg);
+}
+.book:hover {
+    -webkit-transform: rotateX(-10deg) rotateY(20deg);
+    transform: rotateX(-10deg) rotateY(20deg);
+}
+.book__title {
+    margin-bottom: 1em;
+    font-weight: 700;
+}
+.book__text {
+    font-family: Roboto;
+    background: #e9d1c5;
+    padding: 20px;
+    color: #563323;
+}
+
+@media (min-width: 576px) {
+    .container {
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+}
+
+
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+  .book {
+    width: 160px;
+    height: 239px;
+  }
+
+  .pane__section {
+    padding-top: 15px;
+  } 
+
+  .item-preview {
+    padding: 0px;
+  }
+  
+  .item-pane {
+    padding: 0px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+      max-width: 1140px;
+  }
+}
+  
+
+.mentor-image {
+  border-radius: 50%;
+  height: 150px;
+  width: 150px;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
 }
 
