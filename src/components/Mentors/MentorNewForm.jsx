@@ -42,7 +42,7 @@ class MentorForm extends Component {
 				
 				{isEmpty ? <h3>Start Filling the form to see the preview</h3>
 		   		:<article className="item-pane" style={{alignItems : "flex-start"}}>
-		   			<div className="mentor-image mr-4" style={{background: `url('${values.image}')`}}></div>
+		   			<div className="mentor-image mr-5" style={{background: `url('${values.image}')`}}></div>
 		   			<div className="item-details">
 						<h1>{values.name}</h1>
 						<div className="pane__section">
@@ -89,8 +89,8 @@ class MentorForm extends Component {
 		const { getFieldDecorator } = this.props.form;
 		return (
 			<div>
-				<Row gutter={16} className="my-4">
-					<Col xl={12} lg={12} md={24}>
+				<Row className="my-4">
+					<Col>
 						<Card>
 							<Form layout="inline" onSubmit={this.handleSubmit}>
 								<Row>
@@ -222,7 +222,7 @@ class MentorForm extends Component {
 							</Form>
 						</Card>
 					</Col>
-					<Col xl={12} lg={12} md={24}>
+					<Col>
 						<div>
 							{ this.renderCard(this.props.form.getFieldsValue()) }
 						</div>

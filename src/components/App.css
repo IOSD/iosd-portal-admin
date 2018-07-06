@@ -3867,31 +3867,6 @@ a.text-dark:hover, a.text-dark:focus {
   padding: 20px;
   color: #563323; }
 
-@media (min-width: 576px) {
-  .container {
-    max-width: 540px; } }
-
-@media (min-width: 768px) {
-  .container {
-    max-width: 720px; } }
-
-@media (min-width: 992px) {
-  .container {
-    max-width: 960px; }
-  .book {
-    width: 160px;
-    height: 239px; }
-  .pane__section {
-    padding-top: 15px; }
-  .item-preview {
-    padding: 0px; }
-  .item-pane {
-    padding: 0px; } }
-
-@media (min-width: 1200px) {
-  .container {
-    max-width: 1140px; } }
-
 .mentor-image {
   border-radius: 50%;
   height: 150px;
@@ -3899,3 +3874,24 @@ a.text-dark:hover, a.text-dark:focus {
   background-size: cover !important;
   background-repeat: no-repeat !important;
   background-position: center center !important; }
+
+.vertical-center-modal {
+  vertical-align: middle;
+  padding-top: 5%; }
+
+.id-card .ant-card-body {
+  padding: 0; }
+
+.book-card {
+  padding: 10px; }
+
+.img-responsive {
+  width: 100%;
+  height: auto; }
+
+.book-card:hover {
+  background-color: #E5E5E5; }
+
+.book-card .cover {
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+  zoom: 1; }
