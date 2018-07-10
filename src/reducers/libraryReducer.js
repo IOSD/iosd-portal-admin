@@ -1,4 +1,4 @@
-import { SET_LIBRARY_BOOKS, ADD_LIBRARY_BOOK } from '../actions/types';
+import { SET_LIBRARY_BOOKS, ADD_LIBRARY_BOOK, EDIT_LIBRARY_BOOK, DELETE_LIBRARY_BOOK } from '../actions/types';
 
 const initialState = {
     books : [] ,
@@ -30,6 +30,40 @@ export default (state = initialState, action = {}) => {
                 ],
                 categories: categories
                 
+            };
+
+        case EDIT_LIBRARY_BOOK:
+            if (action.updates.category) {
+                if (state.categories.indexOf(action.updates.category) === -1) {
+                    categories = [
+                        ...state.categories,
+                        action.updates.category
+                    ]    
+                } else {
+                    categories = state.categories
+                }   
+            } else {
+                categories = state.categories
+            }
+            
+            return {
+                books: state.books.map(book =>{
+                        if (book._id === action.id) {
+                            return {
+                                ...book,
+                                ...action.updates
+                            };
+                        } else {
+                            return book;
+                        }
+                    }),
+                categories
+            }
+
+        case DELETE_LIBRARY_BOOK:
+            return {
+                books: state.books.filter(book => book._id !== action.id),
+                categories : state.categories
             };
 
         default: return state;

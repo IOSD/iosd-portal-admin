@@ -1,29 +1,31 @@
 import React, {Component} from 'react';
-import { connect } from 'react-redux';
-import { fetchLibraryBooks, addNewLibraryBook } from '../../actions/libraryActions';
 import {Card, Row, Col, Form, Input, Button, Upload, Icon, Divider } from 'antd' ;
 const FormItem = Form.Item;
 const { TextArea } = Input;
 
 class BookForm extends Component {
-	
+	constructor(props) {
+        super(props);
+        
+        this.state = {
+        	name: props.book ? props.book.name : '',
+        	author: props.book ? props.book.author : '',
+            description: props.book ? props.book.description : '',
+            year: props.book ? props.book.year : '',
+            image: props.book ? props.book.image : '',
+            color: props.book ? props.book.color : '',
+            category: props.book ? props.book.category : '' 
+        };
+    };
+
 	handleSubmit = (e) => {
 	    e.preventDefault();
 	    this.props.form.validateFields((err, values) => {
 	    	if (!err) {
 	        	console.log('Received values of form: ', values);
-	        	if (this.props.library.books.length > 0) {
-	        		this.props.dispatch(addNewLibraryBook(values)).then(() => {
-	        			this.props.form.resetFields();
-	        		})
-	        	} else {
-	        		this.props.dispatch(fetchLibraryBooks()).then(() => {
-	        			this.props.dispatch(addNewLibraryBook(values)).then(() => {
-	        				this.props.form.resetFields();
-	        			})
-	        		}).catch(err => console.log("Could not connect to database"));
-	        	}
-	      	};
+	        	this.props.onSubmit(values);
+	        	this.props.form.resetFields();
+	        }
 	    });
 	};
 
@@ -44,9 +46,9 @@ class BookForm extends Component {
                         <div className="book" style={
                             {
                                 background: `url('${values.image}')`,
-                                '--before-bg' : `${values.colour}`
+                                '--before-bg' : `${values.color}`
 
-                            }} data-color={values.colour}>
+                            }} data-color={values.color}>
                         </div>
                     }
                     </div>
@@ -70,19 +72,34 @@ class BookForm extends Component {
         	</Card>
         );
     };
-	
+
+    componentDidMount() {
+    	const {setFieldsValue} = this.props.form;
+    	console.log("did mount");
+    	console.log(this.props.book);
+    	console.log(this.state);
+    	setFieldsValue({
+			name: this.state.name,
+			author: this.state.author,
+			description: this.state.description,
+            year: this.state.year,
+            image: this.state.image,
+            color: this.state.color,
+            category: this.state.category 
+		});	
+    }
 	
 	render() {
 		const { getFieldDecorator } = this.props.form;
 		return (
 			<div>
-				 <Row gutter={16}>
-					<Col xl={12} lg={12} md={24}>
+				<Row>
+					<Col>
 						<Card className="my-4">
 							<Form layout="inline" onSubmit={this.handleSubmit}>
 								<Row>
 									<Col>
-										<h4>Add New Book</h4>
+										<h4>{this.props.book ? 'Edit Book' : 'Add New Book'}</h4>
 									</Col>
 								</Row>
 
@@ -170,7 +187,7 @@ class BookForm extends Component {
 											colon={true}
 											wrapperCol={{span: 24}}
 										>
-										{getFieldDecorator('colour', {
+										{getFieldDecorator('color', {
 											rules: [{ required: true, message: 'Please Input Book Colour' }],
 										})(
 											<Input placeholder="Colour" />
@@ -196,7 +213,7 @@ class BookForm extends Component {
 								
 								<Divider />
 								
-								<Row className=''>
+								<Row>
 									<Col span={8}>
 										<Upload>
 											<Button className='btn btn-sm btn-outline-primary'>
@@ -228,7 +245,7 @@ class BookForm extends Component {
 							</Form>
 						</Card>
 					</Col>
-					<Col xl={12} lg={12} md={24}>
+					<Col>
 						<div className="my-4">
 							{this.renderCard(this.props.form.getFieldsValue())}
 						</div>
@@ -240,11 +257,4 @@ class BookForm extends Component {
 };
 
 const BookNewForm = Form.create()(BookForm);
-
-const mapStateToProps = ({library}) => {
-	return {
-		library
-	}
-}
-
-export default connect(mapStateToProps)(BookNewForm);
+export default BookNewForm;
