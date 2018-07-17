@@ -1,32 +1,48 @@
-import React, {Component} from 'react';
-import { connect } from 'react-redux';
-import { fetchMentors, addNewMentor } from '../../actions/mentorActions';
-import {Card, Row, Col, Form, Input, Button, Select, Divider } from 'antd' ;
+import React, { Component } from 'react';
+import { Card, Row, Col, Form, Input, Button, Select, Divider, Icon } from 'antd' ;
 
 const FormItem = Form.Item;
 const Option = Select.Option;
 
 class MentorForm extends Component {
 	
+	constructor(props) {
+        super(props);
+        
+        this.state = {
+        	name: props.mentor ? props.mentor.name : '',
+        	image: props.mentor ? props.mentor.image : '',
+            specialization: props.mentor ? props.mentor.specialization : '',
+            mobile: props.mentor ? props.mentor.mobile : '',
+            facebook: props.mentor ? props.mentor.facebook : '',
+			linkedIn: props.mentor ? props.mentor.linkedIn : ''
+        };
+    };
+
+
+	componentDidMount() {
+    	const { setFieldsValue } = this.props.form;
+    	setFieldsValue({
+			name: this.state.name,
+			specialization: this.state.specialization,
+            mobile: this.state.mobile,
+            image: this.state.image,
+            facebook: this.state.facebook,
+            linkedIn: this.state.linkedIn 
+		});	
+    }
+
 	handleSubmit = (e) => {
 	    e.preventDefault();
 	    this.props.form.validateFields((err, values) => {
 	    	if (!err) {
 	        	console.log('Received values of form: ', values);
-	        	if(this.props.mentors.length > 0) {
-	        		this.props.dispatch(addNewMentor(values)).then(() => {
-	        			this.props.form.resetFields();
-	        		});
-	        	} else {
-	        		this.props.dispatch(fetchMentors()).then(() => {
-	        			this.props.dispatch(addNewMentor(values)).then(() => {
-	        				this.props.form.resetFields();
-	        			})
-	        		}).catch(err => console.log("could not connect to database"));
-	        	};
+	        	this.props.onSubmit(values);
+				this.props.form.resetFields();	
 	      	};
 	    });
 	};
+
 
 	renderCard(values) {
 		const isEmpty = Object.values(values).every(x => (x === '' || x === undefined));
@@ -46,35 +62,26 @@ class MentorForm extends Component {
 		   			<div className="item-details">
 						<h1>{values.name}</h1>
 						<div className="pane__section">
-							<p>
-							{values.specialization}
-							</p>
-							<p>
-							{values.mobile}
-							</p>
+							<p>{values.specialization}</p>
 						</div>
 						<div className="pane__section clearfix">
+							{values.mobile  &&
+								<span className='mr-2'>
+									<Icon  style={{ fontSize: 22, color: '#08c' }} type="contacts"/>
+									<span> {values.mobile}</span>
+								</span>
+							}
 							{values.facebook  &&
-								<Button size='large' className='button-solid mr-4'>
-									<a 
-										href={values.facebook} 
-										target='_blank'
-										className="card-media-body-supporting-bottom-text card-media-link u-float-right"
-									>
-										Facebook Profile
-									</a>
-							   </Button>
+								<span className='mr-2'>
+									<Icon  style={{ fontSize: 22, color: '#08c' }} type="facebook"/>
+									<a href={values.facebook}> {values.facebook}</a>
+								</span>
 							}
 							{values.linkedIn &&
-								<Button size='large' className='button-solid'>
-									<a 
-										href={values.linkedIn} 
-										target='_blank'
-										className="card-media-body-supporting-bottom-text card-media-link u-float-right"
-									>
-										LinkedIn Profile
-									</a>
-								</Button>
+								<span className='mr-2'>
+									<Icon  style={{ fontSize: 22, color: '#08c' }} type="linkedin"/>
+									<a href={values.linkedIn}> {values.linkedIn}</a>
+								</span>
 							}
 			   			</div>
 			   		</div>
@@ -127,7 +134,7 @@ class MentorForm extends Component {
 										{getFieldDecorator('image', {
 											rules: [{ required: true, message: 'Please input Mentor ID!' }],
 										})(
-											<Input placeholder="Mentor ID" />
+											<Input placeholder="image link" />
 										)}
 										</FormItem>
 									</Col>
@@ -141,7 +148,7 @@ class MentorForm extends Component {
 										>
 										{getFieldDecorator('specialization', {
 											initialValue: "",
-											rules:[{required: true, message: "Please select a CoreTechnology"}]
+											rules:[{required: true, message: "Please select a Core Technology"}]
 										})(
 											<Select>
 												<Option value="Machine Learning">Machine Learning</Option>
@@ -235,10 +242,4 @@ class MentorForm extends Component {
 
 const MentorNewForm = Form.create()(MentorForm);
 
-const mapStateToProps = ({ mentors }) => {
-	return {
-		mentors
-	};
-};
-
-export default connect(mapStateToProps)(MentorNewForm);
+export default MentorNewForm;

@@ -1,75 +1,106 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom' ;
-import {Row, Col, Card,Button} from 'antd' ;
+import React, {Component} from 'react' ;
+import {connect} from "react-redux";
+import { Link } from 'react-router-dom';
+import {Card, Popover, Icon, Row, Col, message} from 'antd' ;
+import { startDeleteMentor } from '../../actions/mentorActions';
 
-class MentorsList extends Component {
+class MentorItem extends Component {
+    state = {
+        visible: false
+    };
+
+    hide = () => {
+        this.setState({
+            visible: false,
+        });
+    };
+
+    handleVisibleChange = (visible) => {
+        this.setState({visible});
+    };
+
+    render() {
+        let mentor = this.props.mentor;
+        return (
+            <Popover
+                content={
+                    <div style={{padding : 10}}>
+                        <Icon  style={{ fontSize: 18, color: '#08c' }} type="facebook"/> {mentor.facebook} <br/>
+                        <Icon  style={{ fontSize: 18, color: '#08c' }} type="linkedin"/> {mentor.linkedIn} <br/>
+                        <Icon  style={{ fontSize: 18, color: '#08c' }} type="contacts"/> {mentor.mobile} <br/>
+                        <br/>
+                        <a onClick={this.hide}>Close</a>
+                    </div>
+                }
+                trigger="click"
+                visible={this.state.visible}
+                onVisibleChange={this.handleVisibleChange}
+            >
+                <Card>
+                    <div className="repo">
+                        <div className='repo-icon'>
+                            <img src={mentor.image} alt="mentor" className="repo-image"/>
+                        </div>
+                        <div>
+                            <div>
+                                <Link to={`/mentors/${this.props.mentor._id}`} className='mr-2'><Icon type="edit" /></Link>
+                                <Icon type="delete" onClick={(id, name) => this.props.handleDelete(this.props.mentor._id, this.props.mentor.name)}/>
+                            </div>
+                            <div className='repo-desc'>
+                                <strong>{mentor.name}</strong>
+                                <p>{mentor.specialization}</p>
+                            </div>
+                        </div>
+                    </div>
+                </Card>
+            </Popover>
+        )
+    }
+
+}
+
+class MentorList extends Component {
+    
+    handleDelete = (id, name) => {
+        this.props.startDeleteMentor(id).then(() => {
+            message.success(`Mentor ${name} successfully deleted!`);
+        })
+    };
+
+    renderMentors() {
+        return (
+            <div className='repo-list'>
+                <Row gutter={24} className="my-4">
+                {
+                    this.props.mentors.map(mentor => {
+                        return (
+                            <Col span={6} key={mentor._id}>
+                                <MentorItem mentor={mentor} handleDelete={this.handleDelete}/>
+                            </Col>
+                        )
+                    })
+                }
+                </Row>
+            </div>
+        )
+    };
+
     render() {
         return (
             <div>
-               Mentors List
-                <Row>
-                    <Col span={6}>
-                        <Card>
-                        <h6>Mentor for Machine Learning</h6>
-                        <p>Mentor ID:41</p>
-                        <hr />
- 
-                            <Link to='/mentors/6'>
-                            <Button className='btn btn-sm btn-outline-primary'>View detail</Button>
-
-                            </Link>
-                        </Card>
-                    </Col>
-                    <Col span={6}>
-                        <Card>
-                        <h6>Mentor for AI</h6>
-                        <p>Mentor ID:42</p>
-                        <hr />
- 
-                            <Link to='/mentors/7'>
-                            <Button className='btn btn-sm btn-outline-primary'>View detail</Button>
-                            </Link>
-                        </Card>
-                    </Col>
-                    <Col span={6}>
-                        <Card>
-                        <h6>Mentor for Networking</h6>
-                        <p>Mentor ID:43</p>
-                        <hr />
- 
-                            <Link to='/mentors/8'>
-                            <Button className='btn btn-sm btn-outline-primary'>View detail</Button>
-                            </Link>
-                        </Card>
-                    </Col>
-                    <Col span={6}>
-                        <Card>
-                        <h6>Mentor for Web Development</h6>
-                        <p>Mentor ID:44</p>
-                        <hr />
- 
-                            <Link to='/mentors/9'>
-                            <Button className='btn btn-sm btn-outline-primary'>View detail</Button>
-                            </Link>
-                        </Card>
-                    </Col>
-                    <Col span={6}>
-                    <Card>
-                        <h6>Mentor for Java Applications</h6>
-                        <p>Mentor ID:45</p>    
-                        <hr />
- 
-                        <Link to='/mentors/10'>
-                        <Button className='btn btn-sm btn-outline-primary'>View detail</Button>
-                        </Link>
-                    </Card>
-                </Col>
-
-                </Row>
+                {this.renderMentors()}
             </div>
         );
-    }
-}
+    };
 
+};
 
-export default MentorsList;
+const mapStateToProps = ({mentors}) => ({
+    mentors
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    startDeleteMentor: (id) => dispatch(startDeleteMentor(id))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MentorList);

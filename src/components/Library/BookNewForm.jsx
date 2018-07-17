@@ -24,10 +24,26 @@ class BookForm extends Component {
 	    	if (!err) {
 	        	console.log('Received values of form: ', values);
 	        	this.props.onSubmit(values);
-	        	this.props.form.resetFields();
+				this.props.form.resetFields();
 	        }
 	    });
 	};
+
+	componentDidMount() {
+    	const {setFieldsValue} = this.props.form;
+    	console.log("did mount");
+    	console.log(this.props.book);
+    	console.log(this.state);
+    	setFieldsValue({
+			name: this.state.name,
+			author: this.state.author,
+			description: this.state.description,
+            year: this.state.year,
+            image: this.state.image,
+            color: this.state.color,
+            category: this.state.category 
+		});	
+    }
 
 	renderCard(values) {
 		const isEmpty = Object.values(values).every(x => (x === null || x === undefined));
@@ -72,22 +88,6 @@ class BookForm extends Component {
         	</Card>
         );
     };
-
-    componentDidMount() {
-    	const {setFieldsValue} = this.props.form;
-    	console.log("did mount");
-    	console.log(this.props.book);
-    	console.log(this.state);
-    	setFieldsValue({
-			name: this.state.name,
-			author: this.state.author,
-			description: this.state.description,
-            year: this.state.year,
-            image: this.state.image,
-            color: this.state.color,
-            category: this.state.category 
-		});	
-    }
 	
 	render() {
 		const { getFieldDecorator } = this.props.form;
