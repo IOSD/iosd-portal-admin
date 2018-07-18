@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import BookNewForm from './BookNewForm';
+import { message } from 'antd';
 import { startEditLibraryBook, fetchLibraryBooks } from '../../actions/libraryActions';
 import { connect } from 'react-redux';
 
@@ -11,6 +12,7 @@ class BookEdit extends Component {
 			this.props.fetchLibraryBooks().then(() => this.props.history.push('/library/list'))
 		}
 		this.props.history.push('/library/list');
+		message.success(`Book ${updates.name} successfully edited`, 3);
 	};
 
     render() {
