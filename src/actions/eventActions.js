@@ -35,11 +35,13 @@ export const addEvent = (event) => {
 
 export const startAddEvent = (eventData) => {
     return dispatch => {
+        console.log("inside start event");
         return axios.post(`${serverConfig.base_url}/api/v1/events/new`, eventData).then(res => {
             if (res.data.success) {
+                console.log("inside success case");
                 dispatch(addEvent(res.data.data));
             };
-        });
+        }).catch(err => console.log("inside error case"));
     };
 };
 

@@ -7,14 +7,26 @@ import EventAdd from './EventAdd';
 import EventEdit from './EventEdit';
 
 class Events extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading: true
+        }
+    };
 
     componentWillMount() {
         if (this.props.events.length === 0 ) {
-            this.props.fetchEvents();
-        };
+            this.props.fetchEvents()
+            .then(() => this.setState({loading: false}))
+        } else {
+            this.setState({loading: false});
+        }
     };
 
     render() {
+        if(this.state.loading) {
+            return <h1>Loading</h1>
+        }
         return (
             <div className='container'>
                 <Switch>

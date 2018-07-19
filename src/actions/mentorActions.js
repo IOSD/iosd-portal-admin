@@ -24,7 +24,6 @@ export const fetchMentors = () => {
     };
 };
 
-
 //add mentors
 export const addMentor = (mentor) => {
     return {

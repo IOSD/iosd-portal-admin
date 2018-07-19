@@ -16,9 +16,9 @@ class BookEdit extends Component {
 	};
 
     render() {
-    	console.log(this.props.book);
+    	console.log("book", this.props.book);
 		return (
-            <div>
+			<div>
             	<BookNewForm book={this.props.book} onSubmit={this.onSubmit}/>
             </div>
         );

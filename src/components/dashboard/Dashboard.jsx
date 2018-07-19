@@ -8,14 +8,11 @@ import Mentor from "./Mentor";
 import Project from "./Project";
 import TotalUser from "./TotalUser";
 
-
 class Dashboard extends Component {
     render(){
         return (
             <div className='container dashboard'>
-                
-
-                <Row>
+                <Row gutter={16}>
                     <Col span={8}>
                         <LibrarySummaryCard />
                     </Col>
@@ -38,7 +35,6 @@ class Dashboard extends Component {
                         <TotalUser />
                     </Col>
                 </Row>
-
             </div>
         )
     }

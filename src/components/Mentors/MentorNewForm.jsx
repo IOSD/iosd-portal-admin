@@ -102,7 +102,7 @@ class MentorForm extends Component {
 							<Form layout="inline" onSubmit={this.handleSubmit}>
 								<Row>
 									<Col>
-										<h4>Add New Mentor</h4>
+										{this.props.mentor ? <h4>Edit Mentor</h4> : <h4>Add New Mentro</h4>}
 									</Col>
 								</Row>
 

@@ -93,12 +93,12 @@ class LibraryComponent extends Component {
                                 </p>
                             </div>
                             <div className="pane__section clearfix">
-                                <Button size='large' className='button-solid'>
-                                    Download
+                                <Button size='large' className='button-solid mr-4'>
+                                    <a href={ selectedBook.link }>Download</a>
                                 </Button>
                                 <div className='pull-right'>
                                     <Link to={`/library/book/${selectedBook._id}`}>
-                                        <Button size='large' className='button-solid mr-4'>
+                                        <Button size='large' className='button-solid mr-2'>
                                             Edit
                                         </Button>
                                     </Link>

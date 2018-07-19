@@ -7,6 +7,7 @@ import EventNewForm from './EventNewForm';
 class EventAdd extends Component {
     
     onSubmit = (event) => {
+        console.log("values are event", event);
         this.props.startAddEvent(event);
         message.success(`Event ${event.title} successfully added`, 3);
     };
@@ -22,6 +23,6 @@ class EventAdd extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
     startAddEvent: (event) => dispatch(startAddEvent(event))
-})
+});
 
 export default connect(undefined, mapDispatchToProps)(EventAdd);

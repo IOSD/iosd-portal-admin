@@ -8,13 +8,27 @@ import { fetchMentors } from '../../actions/mentorActions';
 
 class Mentors extends Component {
     
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading: true
+        }
+    };
+
     componentWillMount() {
         if (this.props.mentors.length === 0 ) {
-            this.props.fetchMentors();
-        };
+            this.props.fetchMentors()
+            .then(() => this.setState({ loading: false }))
+        } else {
+            this.setState({loading: false});
+        }
     };
     
     render() {
+        if (this.state.loading) {
+            return <h1>Loading</h1>
+        }
+        
         return (
             <div className='container'>
                 <Switch>

@@ -16,7 +16,7 @@ class Project extends Component {
                 <Col span={16} className='header'>
                     Projects
                     <p>
-                         Add, Update, View Projects
+                        Add, Update, Delete or View Projects
                     </p>
                 </Col>
             </Row>
