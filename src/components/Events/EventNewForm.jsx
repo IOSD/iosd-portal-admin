@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import { DatePicker } from 'antd';
 import moment from 'moment';
-import { Card, Row, Col, Form, Input, Button, Upload, Icon, Divider } from 'antd' ;
+import { Card, Row, Col, Form, Input, Button, Upload, Icon, Divider, message } from 'antd' ;
 
 const FormItem = Form.Item;
 const {TextArea} = Input;
+
+const props = {
+	name: 'file',
+	action: 'http://localhost:5000/api/v1/uploads'
+};
 
 class EventForm extends Component {
 
@@ -15,20 +20,40 @@ class EventForm extends Component {
         	college: props.event ? props.event.college : '',
         	image: props.event ? props.event.image : '',
             description: props.event ? props.event.description : '',
-            date: props.event ? props.event.date : moment(),
+            date: props.event ? moment(props.event.date) : moment(),
             title: props.event ? props.event.title : '',
 			link: props.event ? props.event.link : ''
         };
     };
 
 
+    // handleBeforeUpload = (file, fileList) => {
+    // 	if (fileList.length >= 1) {
+    // 		return false;
+    // 	} else {
+    // 		return true;
+    // 	}
+    // }
+
+    handleUpload = (info) => {
+	    if (info.file.status !== 'uploading') {
+	      console.log(info.file, info.fileList);
+	    }
+	    if (info.file.status === 'done') {
+	      message.success(`${info.file.name} file uploaded successfully`);
+	      this.setState({image: info.file.response.url});
+
+	    } else if (info.file.status === 'error') {
+	      message.error(`${info.file.name} file upload failed.`);
+	    }
+	};
+
 	componentDidMount() {
-    	const { setFieldsValue } = this.props.form;
+        const { setFieldsValue } = this.props.form;
     	setFieldsValue({
 			title: this.state.title,
 			description: this.state.description,
             college: this.state.college,
-            image: this.state.image,
             date: this.state.date,
             link: this.state.link 
 		});	
@@ -41,15 +66,17 @@ class EventForm extends Component {
                 console.log('Received values of form: ', fieldsValue);
                 const values = {
                     ...fieldsValue,
-                    'date': fieldsValue['date'].format('DD-MM-YYYY'),
+                    'date': new Date(fieldsValue['date'].format('DD-MM-YYYY')),
+                    'image': this.state.image
                 }
+                console.log(values);
                 this.props.onSubmit(values);
 				this.props.form.resetFields();	
             };
         });
     }
 
-    renderCard(values) {
+    renderCard(values, image) {
         const formEmpty = Object.values(values).every(x => (x === '' || x === undefined));
         return (
             <Card>
@@ -66,7 +93,7 @@ class EventForm extends Component {
                         <div className="card-media-object-container">
                             <div className="card-media-object"
                                 style={{
-                                    backgroundImage: `url(${values.image})`
+                                    backgroundImage: `url(${image})`
                                 }}/>
                         </div>
                         <div className="card-media-body">
@@ -122,7 +149,7 @@ class EventForm extends Component {
                             <Form layout="inline" onSubmit={this.handleSubmit}>
                                 <Row>
                                     <Col>
-                                        <h4>Add New Event</h4>
+                                        {this.props.events ? <h4>Edit Event</h4> : <h4>Add New Event</h4>}
                                     </Col>
                                 </Row>
 
@@ -208,28 +235,13 @@ class EventForm extends Component {
                                         )}
                                         </FormItem>
                                     </Col>
-
-                                    <Col span={12}>
-                                        <FormItem
-                                            className= "event-image"
-                                            label="Event Image"
-                                            colon={true}
-                                            wrapperCol={{span: 23}}
-                                        >
-                                        {getFieldDecorator('image',{
-                                            rules: [{ required: true, message: 'Please input Event Description!' }],
-                                        })(
-                                            <Input placeholder="Image Link"/>
-                                        )}
-                                        </FormItem>
-                                    </Col>
                                 </Row>
                                     
                                 <Divider />
 
                                 <Row>
                                     <Col span={12}>
-                                        <Upload>
+                                        <Upload {...props} onChange={this.handleUpload}>
                                             <Button className='btn btn-sm btn-outline-primary'>
                                                 <Icon type="upload" />
                                                     Upload Event Poster
@@ -260,7 +272,7 @@ class EventForm extends Component {
                         </Card>   
                     </Col>                         
                     <Col>
-                        {this.renderCard(this.props.form.getFieldsValue())}
+                        {this.renderCard(this.props.form.getFieldsValue(), this.state.image)}
                     </Col>
                 </Row>
             </div>

@@ -19,6 +19,13 @@ export const EDIT_MENTOR = 'EDIT_MENTOR';
 export const DELETE_MENTOR = 'DELETE_MENTOR'
 
 export const SET_PROJECTS = 'SET_PROJECTS' ;
+export const ADD_PROJECT = 'ADD_PROJECT';
+export const EDIT_PROJECT = 'EDIT_PROJECT';
+export const DELETE_PROJECT = 'DELETE_PROJECT'
 
 export const SET_COURSES = 'SET_COURSES' ;
+export const ADD_COURSE = 'ADD_COURSE';
+export const EDIT_COURSE = 'EDIT_COURSE';
+export const DELETE_COURSE = 'DELETE_COURSE';
+
 export const SET_PROGRESS = 'SET_PROGRESS';

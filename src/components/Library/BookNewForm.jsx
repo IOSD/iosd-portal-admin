@@ -1,7 +1,12 @@
 import React, {Component} from 'react';
-import {Card, Row, Col, Form, Input, Button, Upload, Icon, Divider } from 'antd' ;
+import {Card, Row, Col, Form, Input, Button, Upload, Icon, Divider, message } from 'antd' ;
 const FormItem = Form.Item;
 const { TextArea } = Input;
+
+const props = {
+	name: 'file',
+	action: 'http://localhost:5000/api/v1/uploads'
+};
 
 class BookForm extends Component {
 	constructor(props) {
@@ -14,15 +19,33 @@ class BookForm extends Component {
             year: props.book ? props.book.year : '',
             image: props.book ? props.book.image : '',
             color: props.book ? props.book.color : '',
-            category: props.book ? props.book.category : '' 
+            category: props.book ? props.book.category : '',
+            link: props.book ? props.book.link : ''
         };
     };
+
+    handleUpload = (info) => {
+	    if (info.file.status !== 'uploading') {
+	      console.log(info.file, info.fileList);
+	    }
+	    if (info.file.status === 'done') {
+	      message.success(`${info.file.name} file uploaded successfully`);
+	      this.setState({link: info.file.response.url});
+
+	    } else if (info.file.status === 'error') {
+	      message.error(`${info.file.name} file upload failed.`);
+	    }
+	};
 
 	handleSubmit = (e) => {
 	    e.preventDefault();
 	    this.props.form.validateFields((err, values) => {
 	    	if (!err) {
 	        	console.log('Received values of form: ', values);
+	        	values = {
+	        		...values,
+	        		link: this.state.link
+	        	}
 	        	this.props.onSubmit(values);
 				this.props.form.resetFields();
 	        }
@@ -30,10 +53,9 @@ class BookForm extends Component {
 	};
 
 	componentDidMount() {
+		console.log("did mount")
     	const {setFieldsValue} = this.props.form;
-    	console.log("did mount");
-    	console.log(this.props.book);
-    	console.log(this.state);
+		
     	setFieldsValue({
 			name: this.state.name,
 			author: this.state.author,
@@ -198,14 +220,14 @@ class BookForm extends Component {
 								<Row>
 									<Col span={12}>
 										<FormItem
-											label="Book Link"
+											label="Image Link"
 											colon={true}
 											wrapperCol={{span: 24}}
 										>
 										{getFieldDecorator('image', {
-											rules: [{ required: true, message: 'Please Input Access link!' }],
+											rules: [{ required: true, message: 'Please Input Image link!' }],
 										})(
-											<Input placeholder="Link" />
+											<Input placeholder="Image Link" />
 										)}
 										</FormItem>
 									</Col>	
@@ -215,7 +237,7 @@ class BookForm extends Component {
 								
 								<Row>
 									<Col span={8}>
-										<Upload>
+										<Upload {...props} onChange={this.handleUpload}>
 											<Button className='btn btn-sm btn-outline-primary'>
 												<Icon type="upload" />
 													Upload Book
