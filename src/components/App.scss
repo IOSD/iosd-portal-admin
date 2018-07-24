@@ -29,6 +29,14 @@
 
 }
 
+.button-solid {
+  background: linear-gradient(to right, #56ccf2, #2f80ed);
+  color: white;
+  height: 50px;
+  padding: 0 30px;
+  border-radius: 30px;
+}
+
 .login-form {
   max-width: 300px;
 }
